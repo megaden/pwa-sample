@@ -8,7 +8,7 @@
 // To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
 // This link also includes instructions on opting out of this behavior.
 
-import { saveSubscriptionManager } from './common';
+import { saveSubscriptionManager, saveSubscriptionData } from './common';
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
@@ -72,7 +72,11 @@ function urlB64ToUint8Array(base64String) {
 function updateSubscriptionOnServer(subscription) {
   // TODO: Send subscription to application server
 
-  console.log("Subscription data", JSON.stringify(subscription));
+  const data = JSON.stringify(subscription);
+
+  console.log("Subscription data", data);
+
+  saveSubscriptionData(data);
 }
 
 function registerValidSW(swUrl) {

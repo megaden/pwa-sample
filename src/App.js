@@ -10,9 +10,13 @@ class App extends Component {
 
     this.state = {
       isSubscribed: getSubscribedStatus(),
+      subscriptionData: null,
     };
 
-    onSubscriptionChange(() => this.onSubscriptionChange());
+    onSubscriptionChange(
+      () => this.setState({isSubscribed: getSubscribedStatus()}),
+      data => this.setState({subscriptionData: data})
+    );
   }
 
   onEnableDisable = () => {
@@ -22,10 +26,6 @@ class App extends Component {
       subscribe();
     }
   };
-
-  onSubscriptionChange() {
-    this.setState({isSubscribed: getSubscribedStatus()});
-  }
 
   render() {
     return (
@@ -40,6 +40,7 @@ class App extends Component {
         <p>
           <button onClick={this.onEnableDisable}>{this.state.isSubscribed ? "Unsubscribe" : "Subscribe"}</button>
         </p>
+        {this.state.subscriptionData && <p>{this.state.subscriptionData}</p>}
       </div>
     );
   }
